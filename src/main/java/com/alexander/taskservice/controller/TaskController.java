@@ -34,11 +34,11 @@ public class TaskController {
     @GetMapping(value = "/task/{id}")
     public ResponseEntity<Task> getTask(@PathVariable("id") String uuid) {
         if(!uuidValidator.isValidUUID(uuid)) {
-            throw new InvalidUUIDException("Неправильный UUID задачи");
+            throw new InvalidUUIDException("Invalid task UUID");
         }
         Optional<Task> task = taskService.findTaskByUUID(uuid);
         if(!task.isPresent()) {
-            throw new NoTaskFoundException("Задача с таким UUID не найдена");
+            throw new NoTaskFoundException("No task with such UUID found");
         }
         return ResponseEntity.ok(task.get());
     }
